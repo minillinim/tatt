@@ -1,0 +1,113 @@
+#!/usr/bin/env python
+
+__script_name__ = "NAME ME"
+__version__ = "0.0.1"
+__maintainer__ = "Michael Imelfort"
+__email__ = "mike@mikeimelfort.com"
+__status__ = "Development"
+__profiling__ = False
+
+import argparse
+import sys
+
+import numpy as np
+np.seterr(all='raise')
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import matplotlib
+from matplotlib.patches import Polygon
+from matplotlib.collections import PatchCollection
+
+import math
+import yaml
+
+from star import Star, Shard
+
+def do_work( args ):
+    """ Main wrapper"""
+    config = {}
+    
+    with open(args.config) as document:
+        config = yaml.load(document)
+
+    fig, ax = plt.subplots()
+
+    for star_data in config['stars'].values():
+        
+        star = Star(
+            sides=star_data['sides'],
+            inner_radius=star_data['inner_radius'],
+            outer_radius=star_data['outer_radius'])
+
+        shards = star.shards()
+
+        patches = star.render(shards=shards)
+        p = PatchCollection(patches, cmap=matplotlib.cm.jet, alpha=0.4)
+
+        colors = 100*np.random.rand(len(patches))
+        p.set_array(np.array(colors))
+
+        ax.add_collection(p)
+
+        all_points = np.ravel(star.shards()).reshape(args.sides*5, 2)
+
+        ax.set_xlim([np.min(all_points[:,0]) - 1, np.max(all_points[:,0]) + 1])
+        ax.set_ylim([np.min(all_points[:,1]) - 1, np.max(all_points[:,1]) + 1])
+
+        plt.gca().set_aspect('equal', adjustable='box')
+        plt.show()
+        #plt.savefig(args.filename,dpi=300,format='png')
+
+        plt.close(fig)
+    del fig
+
+    return 0
+
+###############################################################################
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('config', help="Config file")
+
+    #-------------------------------------------------
+    # get and check options
+    args = None
+    if(len(sys.argv) == 1):
+        parser.print_help()
+        sys.exit(0)
+    elif(sys.argv[1] == '-v' or \
+         sys.argv[1] == '--v' or \
+         sys.argv[1] == '-version' or \
+         sys.argv[1] == '--version'):
+        print("%s: version: %s" % (__script_name__, __version__))
+        sys.exit(0)
+    elif(sys.argv[1] == '-h' or \
+         sys.argv[1] == '--h' or \
+         sys.argv[1] == '-help' or \
+         sys.argv[1] == '--help'):
+        parser.print_help()
+        sys.exit(0)
+    else:
+        args = parser.parse_args()
+    
+    try:
+        if(__profiling__):
+            import cProfile
+            cProfile.run('do_work(args)', 'prof')
+            ##########################################
+            ##########################################
+            # Use this in python console!
+            #import pstats
+            #p = pstats.Stats('prof')
+            #p.sort_stats('cumulative').print_stats(10)
+            #p.sort_stats('time').print_stats(10)
+            ##########################################
+            ##########################################
+        else:
+            do_work(args)
+    except:
+        print("Unexpected error:", sys.exc_info()[0])
+        raise
+
