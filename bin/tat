@@ -13,23 +13,25 @@ import os
 import matplotlib.pyplot as plt
 
 try:
-    from config import Config
+    from attrs import Config
 except ImportError:
     sys.path.append(os.path.join(os.getcwd(), 'tatt'))
-    from config import Config
+    from attrs import Config
 
 from layout import Layout
 
 def do_work( args ):
     """ Main wrapper"""
     config = Config(args.config)
-    print(config)
     layout = Layout(config)
 
     fig, ax = plt.subplots()
+
     layout.render(ax)
 
-    #plt.gca().set_aspect('equal', adjustable='box')
+    plt.gca().set_aspect('equal', adjustable='box')
+
+    plt.axis('off') 
     plt.show()
     #plt.savefig(args.filename,dpi=300,format='png')
 

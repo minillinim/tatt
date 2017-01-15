@@ -1,0 +1,178 @@
+---
+  stars:
+    - color: "#000000"
+      position:
+        x: 0.
+        y: 20.
+      rotation: -90.
+      orientation: "counter"
+      scaler: 4.7
+      sides: 7
+      inner_radius: 2.
+      outer_radius: 1.
+      line_width: 1.65
+      tees:
+        - angle: -15
+          width: 0.6
+          length: 0.5
+        - angle: 15
+          width: 0.5
+          length: 0.7
+        - angle: -15
+          width: 1.
+          length: 1.
+
+    - color: "#000000"
+      position:
+        x: 0.
+        y: 30.
+      rotation: -90.
+      orientation: "clockwise"
+      scaler: 4.7
+      sides: 7
+      inner_radius: 2.
+      outer_radius: 1.
+      line_width: 1.65
+      tees:
+        - angle: -15
+          width: 0.6
+          length: 0.5
+        - angle: 15
+          width: 0.5
+          length: 0.7
+        - angle: -15
+          width: 1.
+          length: 1.
+
+    - color: "#000000"
+      position:
+        x: 0.
+        y: 40.
+      rotation: 0.
+      orientation: counter
+      sides: 7
+      inner_radius: 1.
+      outer_radius: 1.
+      scaler: 4.7
+      line_width: 1.65
+      tees:
+        - angle: 45
+          width: 0.6
+          length: 0.5
+        - angle: -25
+          width: 0.5
+          length: 0.7
+        - angle: -25
+          width: 1.
+          length: 1.
+
+    - color: "#000000"
+      position:
+        x: 0.
+        y: 50.
+      rotation: 0.
+      orientation: clockwise
+      sides: 7
+      inner_radius: 1.
+      outer_radius: 1.
+      scaler: 4.7
+      line_width: 1.65
+      tees:
+        - angle: 45
+          width: 0.6
+          length: 0.5
+        - angle: -25
+          width: 0.5
+          length: 0.7
+        - angle: -25
+          width: 1.
+          length: 1.
+
+    - color: "#000000"
+      position:
+        x: 0.
+        y: 60.
+      rotation: 0.
+      orientation: counter
+      sides: 7
+      inner_radius: 1.
+      outer_radius: 3.
+      scaler: 4.7
+      line_width: 1.65
+      tees:
+        - angle: 50
+          width: 0.66
+          length: 0.66
+        - angle: 50
+          width: 0.33
+          length: 0.33
+        - angle: 50
+          width: 1.
+          length: 1.
+
+    - color: "#000000"
+      position:
+        x: 0.
+        y: 70.
+      rotation: 0.
+      orientation: clockwise
+      sides: 7
+      inner_radius: 1.
+      outer_radius: 3.
+      scaler: 4.7
+      line_width: 1.65
+      tees:
+        - angle: 50
+          width: 0.66
+          length: 0.66
+        - angle: 50
+          width: 0.33
+          length: 0.33
+        - angle: 50
+          width: 1.
+          length: 1.
+
+    - color: "#000000"
+      position:
+        x: 0.
+        y: 80.
+      rotation: 0.
+      orientation: counter
+      sides: 7
+      inner_radius: 1.
+      outer_radius: 1.
+      scaler: 4.7
+      line_width: 1.65
+      tees:
+        - angle: -15
+          width: 0.8
+          length: 0.3
+        - angle: 25
+          width: 0.3
+          length: 0.6
+        - angle: 30
+          width: 1.
+          length: 1.
+
+    - color: "#000000"
+      position:
+        x: 0.
+        y: 90.
+      rotation: 0.
+      orientation: clockwise
+      sides: 7
+      inner_radius: 1.
+      outer_radius: 1.
+      scaler: 4.7
+      line_width: 1.65
+      tees:
+        - angle: -15
+          width: 0.8
+          length: 0.3
+        - angle: 25
+          width: 0.3
+          length: 0.6
+        - angle: 30
+          width: 1.
+          length: 1.
+  
