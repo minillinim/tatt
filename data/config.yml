@@ -1,0 +1,30 @@
+---
+  stars:
+    - name: star1
+      position:
+        x: 0.
+        y: 0.
+      rotation: 0.
+      sides: 7
+      inner_radius: 1.
+      outer_radius: 3.
+      distortion:
+        center: 0.
+        inner: 0.
+        left: 0.
+        right: 0.
+      line_thickness: 2
+    - name: star2
+      position:
+        x: 10.
+        y: 2.
+      rotation: 0.
+      sides: 5
+      inner_radius: 1.
+      outer_radius: 3.
+      distortion:
+        center: 0.
+        inner: 0.
+        left: 0.
+        right: 0.
+      line_thickness: 2
