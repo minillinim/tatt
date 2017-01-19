@@ -33,7 +33,7 @@ def do_work( args ):
 
     plt.axis('off') 
     plt.show()
-    #plt.savefig(args.filename,dpi=300,format='png')
+    #plt.savefig("tatt.png", dpi=300, format='png')
 
     plt.close(fig)
     del fig

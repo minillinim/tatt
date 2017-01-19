@@ -3,6 +3,50 @@
     - color: "#000000"
       position:
         x: 0.
+        y: 60.
+      rotation: 0.
+      orientation: counter
+      sides: 7
+      inner_radius: 2.
+      outer_radius: 3.
+      scaler: 4.7
+      line_width: 1.65
+      tees:
+        - angle: 70
+          width: 0.76
+          length: 0.66
+        - angle: 60
+          width: 0.66
+          length: 0.79
+        - angle: 50
+          width: 1.
+          length: 1.
+
+    - color: "#000000"
+      position:
+        x: 0.
+        y: 60.
+      rotation: 0.
+      orientation: counter
+      sides: 7
+      inner_radius: 1.
+      outer_radius: 3.
+      scaler: 4.7
+      line_width: 1.65
+      tees:
+        - angle: 50
+          width: 0.66
+          length: 0.66
+        - angle: 50
+          width: 0.33
+          length: 0.33
+        - angle: 50
+          width: 1.
+          length: 1.
+
+    - color: "#000000"
+      position:
+        x: 0.
         y: 20.
       rotation: -90.
       orientation: "counter"
@@ -85,28 +129,6 @@
           width: 0.5
           length: 0.7
         - angle: -25
-          width: 1.
-          length: 1.
-
-    - color: "#000000"
-      position:
-        x: 0.
-        y: 60.
-      rotation: 0.
-      orientation: counter
-      sides: 7
-      inner_radius: 1.
-      outer_radius: 3.
-      scaler: 4.7
-      line_width: 1.65
-      tees:
-        - angle: 50
-          width: 0.66
-          length: 0.66
-        - angle: 50
-          width: 0.33
-          length: 0.33
-        - angle: 50
           width: 1.
           length: 1.
 
