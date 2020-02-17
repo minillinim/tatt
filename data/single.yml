@@ -1,16 +1,24 @@
 ---
   stars:
-    - name: star1
-      position:
+    - name: "jimmy"
+      color: "#0000FF"
+      center:
         x: 0.
-        y: 0.
-      rotation: 0.
+        y: 20.
+      initial_rotation: 0.
+      orientation: "counter"
+      scaler: 4.7
       sides: 7
-      inner_radius: 1.
-      outer_radius: 3.
-      distortion:
-        center: 0.
-        inner: 0.
-        left: 0.
-        right: 0.
-      line_thickness: 2
+      inner_radius: 2.
+      outer_radius: 1.
+      line_width: 1.65
+      tees:
+        - angle: -15
+          width: 0.6
+          length: 0.5
+        - angle: 15
+          width: 0.5
+          length: 0.7
+        - angle: -15
+          width: 1.
+          length: 1.

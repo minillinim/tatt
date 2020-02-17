@@ -27,13 +27,17 @@ def do_work( args ):
 
     fig, ax = plt.subplots()
 
+    layout.do_mods(7, 4)
     layout.render(ax)
 
     plt.gca().set_aspect('equal', adjustable='box')
 
-    plt.axis('off') 
-    plt.show()
-    #plt.savefig("tatt.png", dpi=300, format='png')
+    plt.axis('off')
+
+    if args.filename is not None:
+        plt.savefig(args.filename, dpi=300, format='png')
+    else:
+        plt.show()
 
     plt.close(fig)
     del fig
@@ -46,6 +50,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('config', help="Config file")
+    parser.add_argument('--filename', help="Save the rendered layout to file", default=None)
 
     #-------------------------------------------------
     # get and check options
@@ -67,7 +72,7 @@ if __name__ == '__main__':
         sys.exit(0)
     else:
         args = parser.parse_args()
-    
+
     try:
         if(__profiling__):
             import cProfile
@@ -86,4 +91,3 @@ if __name__ == '__main__':
     except:
         print("Unexpected error:", sys.exc_info()[0])
         raise
-

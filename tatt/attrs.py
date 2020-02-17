@@ -69,23 +69,3 @@ class Config(DotAttr):
 
     def __str__(self):
         return self._str()
-
-class Point(DotAttr):
-    def __init__(self, x, y):
-        DotAttr.__init__(self,
-            {
-                "x": float(x),
-                "y": float(y),
-            })
-
-    def midpoint(self, far_point):
-        return Point((self.x + far_point.x)/2., (self.y + far_point.y)/2.) 
-
-    def translate(self, u_vector):
-        return Point(self.x + u_vector.x, self.y + u_vector.y) 
-
-    def distance(self, far_point):
-        return np.sqrt((self.x - far_point.x) ** 2 + (self.y - far_point.y) ** 2)
-
-    def __str__(self):
-        return self._str()

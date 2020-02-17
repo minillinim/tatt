@@ -1,10 +1,11 @@
 ---
   stars:
-    - color: "#000000"
-      position:
+    - name: "star_1"
+      color: "#FF0000"
+      center:
         x: 0.
         y: 60.
-      rotation: 0.
+      initial_rotation: 14.
       orientation: counter
       sides: 7
       inner_radius: 2.
@@ -22,11 +23,12 @@
           width: 1.
           length: 1.
 
-    - color: "#000000"
-      position:
+    - name: "star_2"
+      color: "#00FF00"
+      center:
         x: 0.
-        y: 60.
-      rotation: 0.
+        y: 100.
+      initial_rotation: 0.
       orientation: counter
       sides: 7
       inner_radius: 1.
@@ -44,11 +46,12 @@
           width: 1.
           length: 1.
 
-    - color: "#000000"
-      position:
+    - name: "star_3"
+      color: "#0000FF"
+      center:
         x: 0.
         y: 20.
-      rotation: -90.
+      initial_rotation: 0.
       orientation: "counter"
       scaler: 4.7
       sides: 7
@@ -66,11 +69,12 @@
           width: 1.
           length: 1.
 
-    - color: "#000000"
-      position:
+    - name: "star_4"
+      color: "#FFFF00"
+      center:
         x: 0.
         y: 30.
-      rotation: -90.
+      initial_rotation: -90.
       orientation: "clockwise"
       scaler: 4.7
       sides: 7
@@ -88,11 +92,12 @@
           width: 1.
           length: 1.
 
-    - color: "#000000"
-      position:
+    - name: "star_5"
+      color: "#00FFFF"
+      center:
         x: 0.
         y: 40.
-      rotation: 0.
+      initial_rotation: 0.
       orientation: counter
       sides: 7
       inner_radius: 1.
@@ -110,11 +115,12 @@
           width: 1.
           length: 1.
 
-    - color: "#000000"
-      position:
+    - name: "star_6"
+      color: "#FF00FF"
+      center:
         x: 0.
         y: 50.
-      rotation: 0.
+      initial_rotation: 0.
       orientation: clockwise
       sides: 7
       inner_radius: 1.
@@ -132,11 +138,12 @@
           width: 1.
           length: 1.
 
-    - color: "#000000"
-      position:
+    - name: "star_7"
+      color: "#000000"
+      center:
         x: 0.
         y: 70.
-      rotation: 0.
+      initial_rotation: 0.
       orientation: clockwise
       sides: 7
       inner_radius: 1.
@@ -154,11 +161,12 @@
           width: 1.
           length: 1.
 
-    - color: "#000000"
-      position:
+    - name: "star_8"
+      color: "#040404"
+      center:
         x: 0.
         y: 80.
-      rotation: 0.
+      initial_rotation: 0.
       orientation: counter
       sides: 7
       inner_radius: 1.
@@ -176,11 +184,12 @@
           width: 1.
           length: 1.
 
-    - color: "#000000"
-      position:
+    - name: "star_9"
+      color: "#404040"
+      center:
         x: 0.
         y: 90.
-      rotation: 0.
+      initial_rotation: 0.
       orientation: clockwise
       sides: 7
       inner_radius: 1.
@@ -197,4 +206,3 @@
         - angle: 30
           width: 1.
           length: 1.
-  
