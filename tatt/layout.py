@@ -7,25 +7,25 @@ import matplotlib.pyplot as plt
 from star import Star, Point
 
 class Layout(object):
-    def __init__(self, config):
+    def __init__(self, config=None):
         self.stars = []
-        for data in config.stars:
-            star = Star(
-                data.name,
-                data.sides,
-                float(data.inner_radius),
-                float(data.outer_radius),
-                data.center,
-                float(data.initial_rotation),
-                data.tees,
-                data.color,
-                data.orientation,
-                line_width=float(data.line_width),
-                scaler=float(data.scaler),
-                )
+        if config is not None:
+            for data in config.stars:
+                star = Star(
+                    name=data.name,
+                    data=data.sides,
+                    inner_radius=float(data.inner_radius),
+                    outer_radius=float(data.outer_radius),
+                    center=data.center,
+                    initial_rotation=float(data.initial_rotation),
+                    tees=data.tees,
+                    color=data.color,
+                    orientation=data.orientation,
+                    line_width=float(data.line_width),
+                    scaler=float(data.scaler),
+                    )
 
-            star.initialise()
-            self.stars.append(star)
+                self.stars.append(star)
 
     def do_mods(self, num_mods, mod_decay):
         num_stars = len(self.stars)
@@ -35,9 +35,25 @@ class Layout(object):
                 star.initial_rotation += float(mod_idx * np.pi / (star.sides+3))
                 star.outer_radius += (float(mod_idx) * 1./mod_decay)
                 star.center = Point(star.center.x + (mod_idx * 10.), star.center.y)
-
-                star.initialise()
                 self.stars.append(star)
+
+    def randomize(self, count):
+        X = 0
+        Y = 0
+        adder = 25
+        cols = int(np.sqrt(count))
+        col = 0
+        center = Point(0,0)
+        for _ in range(count):
+            self.stars.append(Star(center=center))
+            col += 1
+            if col == cols:
+                X = 0
+                Y += adder
+                col = 0
+            else:
+                X += adder
+            center = Point(X, Y)
 
     def render(self, ax):
         xmins = []

@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 
-__script_name__ = "NAME ME"
-__version__ = "0.0.1"
-__maintainer__ = "Michael Imelfort"
-__email__ = "mike@mikeimelfort.com"
-__status__ = "Development"
+__version__ = '1.0'
 __profiling__ = False
 
 import argparse
@@ -21,17 +17,21 @@ except ImportError:
 from layout import Layout
 
 def do_work( args ):
-    """ Main wrapper"""
-    config = Config(args.config)
-    layout = Layout(config)
+
+    if args.config is not None:
+        config = Config(args.config)
+        layout = Layout(config=config)
+        layout.do_mods(args.mods, args.decay)
+    else:
+        layout = Layout()
+        layout.randomize(args.random)
 
     fig, ax = plt.subplots()
+    fig.set_facecolor('k')
 
-    layout.do_mods(7, 4)
     layout.render(ax)
 
     plt.gca().set_aspect('equal', adjustable='box')
-
     plt.axis('off')
 
     if args.filename is not None:
@@ -49,29 +49,30 @@ def do_work( args ):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('config', help="Config file")
-    parser.add_argument('--filename', help="Save the rendered layout to file", default=None)
+    parser.add_argument('--config', help='Config file', default=None)
+    parser.add_argument('--mods', help='Do this many mods', type=int, default=0)
+    parser.add_argument('--decay', help='Decay rate during mods', type=int, default=3)
+    parser.add_argument('--filename', help='Save the rendered layout to file', default=None)
+    parser.add_argument('--random', type=int, default=1, help='Produce this many random stars')
 
     #-------------------------------------------------
     # get and check options
-    args = None
     if(len(sys.argv) == 1):
-        parser.print_help()
-        sys.exit(0)
+        pass
     elif(sys.argv[1] == '-v' or \
-         sys.argv[1] == '--v' or \
-         sys.argv[1] == '-version' or \
-         sys.argv[1] == '--version'):
-        print("%s: version: %s" % (__script_name__, __version__))
+        sys.argv[1] == '--v' or \
+        sys.argv[1] == '-version' or \
+        sys.argv[1] == '--version'):
+        print('%s: version: %s' % (__script_name__, __version__))
         sys.exit(0)
     elif(sys.argv[1] == '-h' or \
-         sys.argv[1] == '--h' or \
-         sys.argv[1] == '-help' or \
-         sys.argv[1] == '--help'):
+        sys.argv[1] == '--h' or \
+        sys.argv[1] == '-help' or \
+        sys.argv[1] == '--help'):
         parser.print_help()
         sys.exit(0)
-    else:
-        args = parser.parse_args()
+
+    args = parser.parse_args()
 
     try:
         if(__profiling__):
@@ -89,5 +90,5 @@ if __name__ == '__main__':
         else:
             do_work(args)
     except:
-        print("Unexpected error:", sys.exc_info()[0])
+        print('Unexpected error:', sys.exc_info()[0])
         raise

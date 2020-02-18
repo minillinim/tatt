@@ -5,6 +5,7 @@ from matplotlib.patches import Polygon
 from matplotlib.collections import PatchCollection
 import matplotlib.pyplot as plt
 from scipy import interpolate
+from numpy.random import randint
 
 from attrs import DotAttr
 
@@ -12,32 +13,66 @@ def to_rad(angle): return float(angle)/180.*np.pi
 
 class Star(object):
 
-    def __init__(
-        self,
-        name,
-        sides,
-        inner_radius,
-        outer_radius,
-        center,
-        initial_rotation,
-        tees,
-        color,
-        orientation,
+    def __init__(self,
+        name=None,
+        sides=None,
+        inner_radius=None,
+        outer_radius=None,
+        center=None,
+        initial_rotation=None,
+        tees=None,
+        color=None,
+        orientation=None,
         line_width=1,
         scaler=15.,
         ):
 
-        self.name = name
-        self.sides = sides
-        self.inner_radius = inner_radius
-        self.outer_radius = outer_radius
-        self.center = center
-        self.initial_rotation = initial_rotation
-        self.tees = tees
-        self.color = color
-        self.orientation = orientation
+        if name is None:
+            self.name = 'Random_%s' % randint(4)
+            self.sides=7
+            self.inner_radius = 0
+            while (self.inner_radius == 0):
+                self.inner_radius = randint(5)
+            self.outer_radius = self.inner_radius
+            while (self.outer_radius == self.inner_radius):
+                self.outer_radius = self.inner_radius + randint(10)
+            if center is None:
+                self.center = Point(randint(100), randint(100))
+            else:
+                self.center = center
+            self.initial_rotation = randint(360)
+            self.tees = []
+            for _ in range(2 + randint(3)):
+                self.tees.append(Tee(
+                    (10 + randint(30)) - 20,
+                    (70 + randint(30))/100.,
+                    (30 + randint(30))/100.))
+            self.tees.append(Tee(
+                (10 + randint(30)) - 20,
+                1.,
+                1.))
+            self.color = '#%s' % ''.join([
+                '%02X' % (128 + randint(128)),
+                '%02X' % (128 + randint(128)),
+                '%02X' % (128 + randint(128))])
+            if randint(4) % 2 == 0:
+                self.orientation = 'counter'
+            else:
+                self.orientation = 'clockwise'
+        else:
+            self.name = name
+            self.sides = sides
+            self.inner_radius = inner_radius
+            self.outer_radius = outer_radius
+            self.center = center
+            self.initial_rotation = initial_rotation
+            self.tees = tees
+            self.color = color
+            self.orientation = orientation
+
         self.line_width = line_width
         self.scaler = scaler
+        self.initialise()
 
     def initialise(self):
         scaler = self.scaler / (self.inner_radius + self.outer_radius)
@@ -74,7 +109,7 @@ class Star(object):
         # plot the splines for this star's shard, rotate and repeat until
         # all sides have been plotted
         for i in np.arange(self.sides):
-            for spline in self.shard.get_splines():
+            for spline in self.shard.get_splines(ax=ax):
                 xs = spline[0]
                 ys = spline[1]
                 xmins.append(np.min(xs))
@@ -90,6 +125,20 @@ class Star(object):
             np.max(xmaxs) + 1,
             np.min(ymins) - 1,
             np.max(ymaxs) + 1)
+
+    def __str__(self):
+        return '\n'.join([
+            'Name: %s' % self.name,
+            'Sides: %s' % self.sides,
+            'Inner_radius: %s' % self.inner_radius,
+            'Outer_radius: %s' % self.outer_radius,
+            'Center: %s' % str(self.center),
+            'Initial_rotation: %s' % self.initial_rotation,
+            '\n'.join(['\t%s' % str(t) for t in self.tees]),
+            'Color: %s' % self.color,
+            'Orientation: %s' % self.orientation,
+            'Line_width: %s' % self.line_width,
+            'Scaler: %s' % self.scaler])
 
 class Shard(object):
 
@@ -111,7 +160,7 @@ class Shard(object):
         self.orientation = orientation
         self.direction = initial_rotation
 
-    def get_splines(self):
+    def get_splines(self, ax=None):
 
         # angles of lines starting from center of star that bound the shard
         upper_angle = (self.direction + self.inner_angle / 2.) % (2. * np.pi)
@@ -127,7 +176,7 @@ class Shard(object):
 
         current_direction = self.direction
         remaining_width = upper_inner_point.distance(lower_inner_point)
-        remaining_length = self.outer_radius
+        remaining_length = self.outer_radius - self.inner_radius
 
         if self.orientation == "counter":
             lower_points = [self.center, lower_inner_point]
@@ -135,6 +184,14 @@ class Shard(object):
         else:
             lower_points = [lower_inner_point]
             upper_points = [self.center, upper_inner_point]
+
+        if ax is not None:
+            ax.plot(
+                [lower_inner_point.x, upper_inner_point.x],
+                [lower_inner_point.y, upper_inner_point.y],
+                '#FFFFFF')
+
+        colors = ['#FF0000', '#00FF00', '#0000FF']
 
         for which, t in enumerate(self.tees):
 
@@ -144,6 +201,10 @@ class Shard(object):
                 current_direction,
                 lower_points[-1],
                 upper_points[-1])
+
+            if ax is not None:
+                for Xs, Ys in lines:
+                    ax.plot(Xs, Ys, colors[which % 3])
 
             if(len(new_points) == 1):
                 lower_points.append(new_points[0])
@@ -232,4 +293,4 @@ class Point(DotAttr):
         return np.sqrt((self.x - far_point.x) ** 2 + (self.y - far_point.y) ** 2)
 
     def __str__(self):
-        return self._str()
+        return '(%s)' % ', '.join([str(p) for p in [self.x, self.y]])
